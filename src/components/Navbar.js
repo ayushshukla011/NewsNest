@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom";
+import Beforelogin from './Beforelogin';
+import Afterlogin from './Afterlogin';
 
 export class Navbar extends Component {
    under= (event)=>{
@@ -12,25 +14,8 @@ export class Navbar extends Component {
     event.target.style.color= "white";
   } 
   render() {
-    const togglep=()=>{
-      document.body.style.background="rgb(153 180 220)";
-      console.log("primary");
-    }
-    const togglew=()=>{
-      document.body.style.background="#f1e0ac";
-      console.log("warning");
-    }
-    const toggled=()=>{
-      document.body.style.background="#f0bac0";
-      console.log("danger");
-    }
-    const toggleoo=()=>{
-      document.body.style.background="";
-      console.log("default");
-    }
-
     return (
-      <div >
+      <>
       <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark ">
       <Link className="navbar-brand" to="/"><img src="./icons8-nbc-32.png" alt="" />NewsNest~</Link >
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,23 +37,13 @@ export class Navbar extends Component {
 
           </ul>
           <div className='d-flex' id='theme changer'>
-          <div className='mx-2'>
-          <button type="button" className="btn btn-primary"  onClick={togglep} style={{height:"30px",widows:"30px"}}></button>
-          </div>
-          <div className='mx-2'>
-          <button type="button" className="btn btn-warning"  onClick={togglew} style={{height:"30px",widows:"30px"}}></button>
-          </div>
-          <div className='mx-2'>
-          <button type="button" className="btn btn-danger" onClick={toggled}  style={{height:"30px",widows:"30px"}}></button>
-          </div>
-          <div className='mx-2'>
-          <button type="button" className="btn btn-light" onClick={toggleoo}  style={{height:"30px",widows:"30px"}}></button>
-          </div>
+          {!sessionStorage.getItem("token")?<Beforelogin/>:<Afterlogin/>}
+          
           </div>
       </div>
      
   </nav>
-  </div>
+  </>
     
     )
   }

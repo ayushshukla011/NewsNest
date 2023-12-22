@@ -78,14 +78,14 @@ router.post('/login',[
         let user= await User.findOne({email:req.body.email});
         if(!user){
             success=false;
-            return res.status(400).json(success,"Invalid credentials");
+            return res.status(400).json({success,errors: "Invalid credentials"});
         }
         //checking password match
         const passwordcompare = await bcrypt.compare(req.body.password, user.password)
         
         if(!passwordcompare){
             success=false;
-            return res.status(400).json(success,"Invalid credentials");
+            return res.status(400).json({success,errors: "Invalid credentials"});
         }
 
         //creating token by using id of user
